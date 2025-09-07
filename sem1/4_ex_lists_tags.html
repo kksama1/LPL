@@ -1,0 +1,56 @@
+
+ <!DOCTYPE html>
+ <html>
+
+    <head>
+        
+    </head>
+ 
+
+    <body>
+        <h2>Неупорядоченный список</h2>
+        <ul>
+            <li>first item</li>
+            <li>
+                second item
+                <!-- Закрывающий тег </li> пишем не здесь! -->
+                <ul>
+                <li>second item first subitem</li>
+                <li>
+                    second item second subitem
+                    <!-- То же самое для второго вложенного неупорядоченного списка! -->
+                    <ul>
+                    <li>second item second subitem first sub-subitem</li>
+                    <li>second item second subitem second sub-subitem</li>
+                    <li>second item second subitem third sub-subitem</li>
+                    </ul>
+                </li>
+                <!-- Закрывающий тег </li>, который
+            закрывает третий неупорядоченный список -->
+                <li>second item third subitem</li>
+                </ul>
+                <!-- Вот закрывающий тег </li> -->
+            </li>
+            <li>third item</li>
+        </ul>
+ 
+
+        <h2>Упорядоченный список</h2>
+        <ol>
+            <li>Mix flour, baking powder, sugar, and salt.</li>
+            <li>In another bowl, mix eggs, milk, and oil.</li>
+            <li>Stir both mixtures together.</li>
+            <li>Fill muffin tray 3/4 full.</li>
+            <li>Bake for 20 minutes.</li>
+        </ol>
+
+
+        <ol type="i">
+            <li>Introduction</li>
+            <li>List of Greivances</li>
+            <li>Conclusion</li>
+        </ol>
+
+    </body>
+
+ </html>

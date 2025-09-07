@@ -1,0 +1,38 @@
+ <!DOCTYPE html>
+ <html>
+    <head>
+        
+    </head>
+
+    <body>
+        <!-- Простая форма, которая пошлёт GET запрос -->
+        <form action="">
+            <label for="GET-name">Name:</label>
+            <input id="GET-name" type="text" name="name" />
+            <input type="submit" value="Save" />
+        </form>
+
+        <!-- Простая форма, которая пошлёт POST запрос -->
+        <form action="" method="post">
+            <label for="POST-name">Name:</label>
+            <input id="POST-name" type="text" name="name" />
+            <input type="submit" value="Save" />
+        </form>
+
+        <!-- Форма с fieldset, legend, и label -->
+        <form action="">
+            <fieldset>
+                <legend>Title</legend>
+                <input type="radio" id="contactChoice1" name="contact" value="email" />
+                <label for="contactChoice1">Email</label>
+                <input type="radio" id="contactChoice2" name="contact" value="phone" />
+                <label for="contactChoice2">Phone</label>
+                <input type="radio" id="contactChoice3" name="contact" value="mail" />
+                <label for="contactChoice3">Mail</label>
+            </fieldset>
+        </form>
+
+    </body>
+
+ </html>
+
