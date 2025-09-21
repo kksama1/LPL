@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Демо DOM и JS</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .highlight { background: yellow; border-radius: 4px; padding: 2px 4px; }
+    .box { margin: 5px 0; padding: 5px; background: lightblue; }
+    button { margin: 5px 0; padding: 5px 10px; }
+  </style>
+</head>
+<body>
+
+<h1 id="title">Демо работы с DOM</h1>
+
+<input type="text" id="inputName" placeholder="Введите имя">
+<button id="btnGreet">Поздороваться</button>
+<div id="greeting"></div>
+
+<h2>Создание новых элементов</h2>
+<button id="btnAdd">Добавить новый элемент</button>
+<div id="container"></div>
+
+<h2>Массив и список элементов</h2>
+<ul id="list"></ul>
+<button id="btnAddList">Добавить элемент в список</button>
+
+<script>
+  // 1️⃣ Приветствие
+  const input = document.getElementById('inputName');
+  const btnGreet = document.getElementById('btnGreet');
+  const greeting = document.getElementById('greeting');
+
+  btnGreet.addEventListener('click', () => {
+    const name = input.value.trim() || 'Гость';
+    greeting.textContent = `Привет, ${name}!`;
+    greeting.classList.add('highlight');
+    setTimeout(() => greeting.classList.remove('highlight'), 1500);
+  });
+
+  // 2️⃣ Добавление новых div
+  const btnAdd = document.getElementById('btnAdd');
+  const container = document.getElementById('container');
+
+  let count = 1;
+  btnAdd.addEventListener('click', () => {
+    const newDiv = document.createElement('div');
+    newDiv.textContent = `Новый элемент #${count++}`;
+    newDiv.className = 'box';
+    container.appendChild(newDiv);
+
+    // клик по новому элементу меняет цвет
+    newDiv.addEventListener('click', () => {
+      newDiv.style.background = newDiv.style.background === 'lightgreen' ? 'lightblue' : 'lightgreen';
+    });
+  });
+
+  // 3️⃣ Работа со списком (массив)
+  const btnAddList = document.getElementById('btnAddList');
+  const list = document.getElementById('list');
+  const items = [];
+
+  btnAddList.addEventListener('click', () => {
+    const itemName = prompt('Введите текст для нового элемента:');
+    if (!itemName) return;
+
+    items.push(itemName);
+    renderList();
+  });
+
+  function renderList() {
+    list.innerHTML = '';
+    items.forEach((text, index) => {
+      const li = document.createElement('li');
+      li.textContent = text;
+
+      // при клике помечаем как выполнено
+      li.addEventListener('click', () => {
+        li.style.textDecoration = li.style.textDecoration === 'line-through' ? 'none' : 'line-through';
+      });
+
+      // кнопка удаления
+      const delBtn = document.createElement('button');
+      delBtn.textContent = 'Удалить';
+      delBtn.style.marginLeft = '10px';
+      delBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // чтобы не срабатывало выделение
+        items.splice(index, 1);
+        renderList();
+      });
+
+      li.appendChild(delBtn);
+      list.appendChild(li);
+    });
+  }
+
+  // 4️⃣ Дополнительный пример: изменение существующих элементов
+  const title = document.getElementById('title');
+  setTimeout(() => {
+    title.textContent += " — всё готово!";
+    title.style.color = 'darkblue';
+  }, 1000);
+
+</script>
+
+</body>
+</html>
