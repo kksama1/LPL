@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Таблица с индексами</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    table { border-collapse: collapse; margin-top: 10px; }
+    td, th {
+      border: 1px solid black;
+      padding: 6px 10px;
+      text-align: center;
+    }
+    button { margin: 4px; }
+    input, select { margin: 4px; }
+  </style>
+</head>
+<body>
+
+<h2>Таблица с динамическими строками и столбцами</h2>
+
+<button id="btnRow">Добавить строку</button>
+<button id="btnCol">Добавить столбец</button>
+<br>
+<button id="btnDelRow">Удалить строку</button>
+<input type="number" id="rowIndex" placeholder="№ строки" min="1">
+<br>
+<button id="btnDelCol">Удалить столбец</button>
+<input type="number" id="colIndex" placeholder="№ столбца" min="1">
+<br><br>
+
+<form id="editForm">
+  <label>Строка: <input type="number" id="editRow" min="1"></label>
+  <label>Столбец: <input type="number" id="editCol" min="1"></label>
+  <label>Текст: <input type="text" id="editText"></label>
+  <button type="submit">Изменить</button>
+</form>
+
+<table id="myTable">
+  <tr>
+    <th>1x1</th>
+    <th>1x2</th>
+  </tr>
+  <tr>
+    <td>2x1</td>
+    <td>2x2</td>
+  </tr>
+</table>
+
+<script>
+  const table = document.getElementById('myTable');
+
+  // Добавить строку
+  document.getElementById('btnRow').addEventListener('click', () => {
+    const newRow = table.insertRow();
+    const rowIndex = table.rows.length; // индекс новой строки
+    const cols = table.rows[0].cells.length;
+
+    for (let j = 0; j < cols; j++) {
+      const newCell = newRow.insertCell();
+      newCell.textContent = `${rowIndex}x${j+1}`;
+    }
+  });
+
+  // Добавить столбец
+  document.getElementById('btnCol').addEventListener('click', () => {
+    const colIndex = table.rows[0].cells.length + 1;
+    for (let i = 0; i < table.rows.length; i++) {
+      const newCell = table.rows[i].insertCell();
+      if (i === 0) {
+        newCell.outerHTML = `<th>1x${colIndex}</th>`;
+      } else {
+        newCell.textContent = `${i+1}x${colIndex}`;
+      }
+    }
+  });
+
+  // Удалить строку
+  document.getElementById('btnDelRow').addEventListener('click', () => {
+    const index = parseInt(document.getElementById('rowIndex').value);
+    if (index > 0 && index <= table.rows.length) {
+      table.deleteRow(index - 1);
+    }
+  });
+
+  // Удалить столбец
+  document.getElementById('btnDelCol').addEventListener('click', () => {
+    const index = parseInt(document.getElementById('colIndex').value);
+    if (!index) return;
+    for (let i = 0; i < table.rows.length; i++) {
+      if (table.rows[i].cells.length >= index) {
+        table.rows[i].deleteCell(index - 1);
+      }
+    }
+  });
+
+  // Изменение содержимого ячейки
+  document.getElementById('editForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const r = parseInt(document.getElementById('editRow').value);
+    const c = parseInt(document.getElementById('editCol').value);
+    const text = document.getElementById('editText').value;
+
+    if (r > 0 && r <= table.rows.length) {
+      const row = table.rows[r - 1];
+      if (c > 0 && c <= row.cells.length) {
+        row.cells[c - 1].textContent = text;
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

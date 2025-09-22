@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Демо DOM</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .box { border: 1px solid gray; padding: 10px; margin: 10px; }
+    ul { padding-left: 20px; }
+    code { background: #f0f0f0; padding: 2px 4px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+
+<h1 id="title">Пример работы с DOM</h1>
+
+<div id="parent" class="box">
+  Родительский элемент (div)
+  <ul>
+    <li>Дочерний элемент 1</li>
+    <li>Дочерний элемент 2</li>
+    <li>Дочерний элемент 3</li>
+  </ul>
+</div>
+
+<button id="btnShowChildren">Показать детей UL</button>
+<button id="btnHighlightFirst">Подсветить первого ребёнка</button>
+<button id="btnShowParent">Показать родителя UL</button>
+
+<pre id="output"></pre>
+
+<script>
+  const parentDiv = document.getElementById('parent');
+  const list = parentDiv.querySelector('ul');
+  const output = document.getElementById('output');
+
+  // 1️⃣ Показать всех детей UL
+  document.getElementById('btnShowChildren').addEventListener('click', () => {
+    const children = list.children; // HTMLCollection
+    output.textContent = "Дети UL: \n";
+    for (let i = 0; i < children.length; i++) {
+      output.textContent += ` - <${children[i].tagName.toLowerCase()}>\n`;
+    }
+  });
+
+  // 2️⃣ Подсветить первого ребёнка
+  document.getElementById('btnHighlightFirst').addEventListener('click', () => {
+    const firstChild = list.firstElementChild;
+    if (firstChild) {
+      firstChild.style.background = "yellow";
+      output.textContent = `Первый ребёнок: <${firstChild.tagName.toLowerCase()}>`;
+    }
+  });
+
+  // 3️⃣ Найти родителя UL
+  document.getElementById('btnShowParent').addEventListener('click', () => {
+    const parentOfList = list.parentElement;
+    output.textContent = `Родитель <ul> — это тег <${parentOfList.tagName.toLowerCase()}>`;
+  });
+</script>
+
+</body>
+</html>
